@@ -66,10 +66,25 @@ def shopping_cart():
 
     for convert in cart_items:
         melon = melons.get_by_id(convert)
+        # print melon_tally.get(melon.common_name, "not here")
         melon_tally[melon.common_name] = melon_tally.get(melon.common_name, 0) +1
+        melon_tally[melon.common_name].append(melon.price)
+        #print melon_price
+
+        # quanity = melon_tally.get(melon.common_name)
+
+
+        # melon[dixie_queen] = [qty, price]
+
+        # qty_price = melon[dixie_queen]
+        # qty_price[0] + 1
+    # print melon.common_name, melon.price
+    print melon_tally
+    # for stuff in melon_tally.items():
+    #     print stuff, stuff[1] * melon.price
 
     #still a work in progress, but this give us the total price per melon!
-    print melon_tally[melon.common_name] * melon.price
+    #print melon_tally[""] * melon.price
 
     
 
