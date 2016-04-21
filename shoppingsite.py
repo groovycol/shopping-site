@@ -51,7 +51,7 @@ def show_melon(melon_id):
     """
 
     melon = melons.get_by_id(melon_id)
-    print melon
+    
     return render_template("melon_details.html",
                            display_melon=melon)
 
@@ -60,6 +60,22 @@ def show_melon(melon_id):
 def shopping_cart():
     """Display content of shopping cart."""
 
+    melon_tally = {}
+
+    cart_items = session["cart"]
+
+    for convert in cart_items:
+        melon = melons.get_by_id(convert)
+        melon_tally[melon.common_name] = melon_tally.get(melon.common_name, 0) +1
+
+    #still a work in progress, but this give us the total price per melon!
+    print melon_tally[melon.common_name] * melon.price
+
+    
+
+
+
+    
     # TODO: Display the contents of the shopping cart.
 
     # The logic here will be something like:
@@ -84,6 +100,7 @@ def add_to_cart(id):
     list_of_ids = session.get("cart", []) 
     list_of_ids.append(id)
     session['cart'] = list_of_ids
+    flash("The item(s) have been added to your cart")
 
     # TODO: Finish shopping cart functionality
 
@@ -91,7 +108,8 @@ def add_to_cart(id):
     #
     # - add the id of the melon they bought to the cart in the session
 
-    return "Cart contains {}".format(session.values())
+    # return "Cart contains {}".format(session.values())
+    return redirect("/cart")
 
 
 @app.route("/login", methods=["GET"])
