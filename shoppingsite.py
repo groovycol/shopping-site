@@ -64,11 +64,17 @@ def shopping_cart():
 
     cart_items = session["cart"]
 
-    for convert in cart_items:
-        melon = melons.get_by_id(convert)
+    for melon_id in set(cart_items):
+        melon = melons.get_by_id(melon_id)
         # print melon_tally.get(melon.common_name, "not here")
-        melon_tally[melon.common_name] = melon_tally.get(melon.common_name, 0) +1
-        melon_tally[melon.common_name].append(melon.price)
+
+        quantity = cart_items.count(melon_id)
+
+        melon_info = [quantity, melon.price]
+
+        melon_tally[melon.common_name] = melon_info
+        # melon_tally[melon.common_name] = melon_tally.get(melon.common_name, 0) +1
+        # melon_tally[melon.common_name].append(melon.price)
         #print melon_price
 
         # quanity = melon_tally.get(melon.common_name)
